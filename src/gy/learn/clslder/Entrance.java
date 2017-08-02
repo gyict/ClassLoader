@@ -20,14 +20,19 @@ public class Entrance {
     public static void main(String[] args) {
         while (true){
             try{
-                manageClassLoader.setRootUrl("/Users/gaoyuan/Desktop/Gaoy/Java/JavaLoaderHelper");
+                manageClassLoader.setRootUrl("/Users/gaoyuan/Downloads/spring_mvc_mybatis_maven--master/out/artifacts/WIFIProbeAnalysis_web_war_exploded/WEB-INF/upload");
                 //myFileClassLoader.setRooturl("/Users/gaoyuan/Desktop/Gaoy/Java/Ali/Proone/target/classes");
-                String classname = "Output";
+                String classname = "newfunction.addClass";
                 Class cls = manageClassLoader.loadClass(classname);
                 if(cls!=null){
                     System.out.println(cls.getClassLoader());
-                    Method method = cls.getMethod("sayHello", String.class);
-                    System.out.println(method.invoke(cls.newInstance(), "Minsheng"));
+                    Method[] methods = cls.getMethods();
+                    System.out.println(methods.length);
+//                    for(Method m:methods){
+//                        System.out.println(m.getName());
+//                    }
+                    Method method = cls.getMethod("getClassname");
+                    System.out.println(method.invoke(cls.newInstance()));
 
                     String file = classname+ ".properties";
                     InputStream in = new FileInputStream(new File(ManageClassLoader.rootUrl+"/"+file));
@@ -63,10 +68,11 @@ public class Entrance {
                 }else{
                     System.out.println("null");
                 }
-                Thread.sleep(20*1000);
-//
+                Thread.sleep(200*1000);
             }catch (Exception e){
                 e.printStackTrace();
+            }finally {
+
             }
 
 
